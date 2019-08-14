@@ -1,1 +1,2 @@
-*.* linguist-language=CSharp
+* linguist-vendored
+*.ps1 linguist-vendored=false
