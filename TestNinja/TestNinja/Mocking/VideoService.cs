@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using Newtonsoft.Json;
 
 namespace TestNinja.Mocking
@@ -9,10 +7,13 @@ namespace TestNinja.Mocking
     public class VideoService
     {
         private IFileReader _fileReader;
+        private IVideoRepository _videoRepository;
+        
 
-        public VideoService(IFileReader fileReader = null) // fileReader is now optional
+        public VideoService(IFileReader fileReader = null, IVideoRepository videoRepository = null) // fileReader is now optional
         {
             _fileReader = fileReader ?? new FileReader(); // if left value (fileReader) is not null, return it, otherwise return value on right (new FileReader())
+            _videoRepository = videoRepository ?? new VideoRepository();
         }
 
         public string ReadVideoTitle()
@@ -27,19 +28,26 @@ namespace TestNinja.Mocking
         public string GetUnprocessedVideosAsCsv()
         {
             var videoIds = new List<int>();
-            
-            using (var context = new VideoContext())
-            {
-                var videos = 
-                    (from video in context.Videos
-                    where !video.IsProcessed
-                    select video).ToList();
-                
-                foreach (var v in videos)
-                    videoIds.Add(v.Id);
 
-                return String.Join(",", videoIds);
-            }
+            var videos = _videoRepository.GetUnprocessedVideos();
+            foreach (var v in videos)
+                videoIds.Add(v.Id);
+
+            return string.Join(",", videoIds);
+
+
+            //using (var context = new VideoContext())
+            //{
+            //    var videos =
+            //        (from video in context.Videos
+            //         where !video.IsProcessed
+            //         select video).ToList();
+
+            //    foreach (var v in videos)
+            //        videoIds.Add(v.Id);
+
+            //    return string.Join(",", videoIds);
+            //}
         }
     }
 
