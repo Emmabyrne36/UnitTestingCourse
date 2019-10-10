@@ -1,4 +1,4 @@
-﻿// using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿// using Microsoft.VisualStudio.TestTools.UnitTesting; // this is for MS Test
 using NUnit.Framework;
 using TestNinja.Fundamentals;
 

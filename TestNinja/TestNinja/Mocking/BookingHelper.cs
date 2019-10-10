@@ -29,7 +29,7 @@ namespace TestNinja.Mocking
         }
     }
 
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         public IQueryable<T> Query<T>()
         {

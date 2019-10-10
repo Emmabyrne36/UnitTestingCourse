@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace TestNinja.Fundamentals
 {
@@ -16,7 +15,7 @@ namespace TestNinja.Fundamentals
                 
             LastError = error; 
             
-            // Write the log to a storage
+            // Log to DB
             // ...
 
             ErrorLogged?.Invoke(this, Guid.NewGuid());
